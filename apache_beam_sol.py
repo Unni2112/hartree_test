@@ -2,6 +2,7 @@ import apache_beam as beam
 import apache_beam.runners.interactive.interactive_beam as ib
 from apache_beam.runners.interactive.interactive_runner import InteractiveRunner
 import logging
+import os
 
 # Configure the logger
 logging.basicConfig(filename="logs.log", format="%(asctime)s %(message)s", filemode="a")
@@ -67,6 +68,8 @@ def main():
 
     # Process and merge data
     df_result = process_data(df1, df2, df3)
+    if not os.path.exists('Output'):
+        os.mkdir('Output')
     df_result.to_csv("Output/apache_beam_sol.csv")
     logger.info("Process completed using Apache-beam Framework")
 

@@ -1,6 +1,7 @@
 import pandas as pd
 from pandas import DataFrame
 import logging
+import os 
 
 logging.basicConfig(filename="logs.log", format="%(asctime)s %(message)s", filemode="a")
 logger = logging.getLogger()
@@ -82,6 +83,8 @@ def main():
     arap_data, accr_data = transform_data(dataset1)
     final_data = merge_data(arap_data, accr_data, dataset2)
     final_data_1 = process_data(final_data)
+    if not os.path.exists('Output'):
+        os.mkdir('Output')
     final_data_1.to_csv("Output/pandas_sol.csv")
     logger.info("Process completed using Pandas Framework")
 
